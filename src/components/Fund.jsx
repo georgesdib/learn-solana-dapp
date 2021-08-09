@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Alert, Button, Space, Col, Input, Typography } from 'antd';
-import { Connection, PublicKey } from "@solana/web3.js";
+import { Connection, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 const { Text } = Typography;
 
@@ -13,9 +13,14 @@ const Fund = () => {
     const connection = new Connection(url);
     
     // Create a PublicKey address from the input value
+    const publicKey = new PublicKey(value);
     // Call requestAirdrop
-    // On success, set isFunded to true
-
+    connection.requestAirdrop(publicKey, LAMPORTS_PER_SOL).then(signature => {
+      connection.confirmTransaction(signature).then(
+        // On success, set isFunded to true
+        setIsFunded(true)
+      )
+    }).catch(error => console.error(error));
   }
   
   return (

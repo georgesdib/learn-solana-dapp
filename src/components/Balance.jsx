@@ -16,8 +16,15 @@ const Balance = () => {
     const connection = new Connection(url);
     
     // Create a PublicKey from the input value
+    const publicKey = new PublicKey(value);
     // Call getBalance
-    // Set balance using setBalance and DECIMAL_OFFSET
+    connection.getBalance(publicKey).then(balance => {
+      // Set balance using setBalance and DECIMAL_OFFSET
+      setBalance(balance / DECIMAL_OFFSET)
+    }).catch(error => {
+      console.error(error);
+      setBalance(null);
+    });
   }
 
   const explorerUrl = getAccountExplorerURL(value);

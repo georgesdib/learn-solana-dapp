@@ -3,6 +3,7 @@
 yarn-error.log
 
 *.sw[po]
+*.so
 /.cargo
 /dist
 .env
@@ -10,3 +11,6 @@ src/client/util/store
 test-ledger/
 
 dist
+/program/target/
+.DS_Store
+yarn.lock
